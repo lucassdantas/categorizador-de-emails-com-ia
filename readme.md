@@ -2,7 +2,7 @@
 
 This project is a web-based email classification tool designed for the finance sector. It allows users to quickly classify emails as either **productive** or **unproductive**, and automatically suggests responses using AI. If the AI is unavailable or returns an error, a manual fallback system ensures continuous functionality.
 
-Deploy URL: https://devdantas.pythonanywhere.com/
+Deploy URL: <a href='https://devdantas.pythonanywhere.com/' target='_blank'>https://devdantas.pythonanywhere.com/ </a> 
 ---
 
 ## Features
@@ -42,7 +42,7 @@ Deploy URL: https://devdantas.pythonanywhere.com/
 2. Install all dependencies:
     pip install flask PyPDF2 nltk python-dotenv google-generativeai
 
-3. Configure your AI API key and credentials in a `.env` file:
+3. Configure your AI API key and credentials in a `.env` file:\
     GEMINI_API_KEY=your_api_key_here\
     LOGIN:your_login\
     PASSWORD:your_password
