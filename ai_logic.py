@@ -83,7 +83,17 @@ def process_email():
         return jsonify({"error": "Nenhum conteúdo de email recebido."}), 400
 
     categoria, resposta = classify_with_ai(email_text)
+    
+    # --- Determina a fonte da resposta ---
     if not categoria or not resposta:
         categoria, resposta = manual_classification(email_text)
+        source = "manual"
+    else:
+        source = "ai"
 
-    return jsonify({"categoria": categoria, "resposta": resposta})
+    return jsonify({
+        "categoria": categoria,
+        "resposta": resposta,
+        "source": source  
+    })
+

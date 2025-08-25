@@ -21,7 +21,13 @@
         <button id="clearFileBtn" class="px-3 py-1 rounded bg-gray-300 hover:bg-gray-400">Limpar</button>
       </div>
       <textarea id="emailText" rows="6" class="mt-3 w-full border rounded p-2" placeholder="Cole o email aqui..."></textarea>
-      <button id="analyzeBtn" class="mt-4 px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700">Processar</button>
+      <button id="analyzeBtn" class="mt-4 px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 flex items-center justify-center gap-2">
+        <span id="btnText">Processar</span>
+        <svg id="btnSpinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+        </svg>
+      </button>  
     </section>
 
     <!-- Resultados -->
@@ -31,6 +37,7 @@
         <p><b>Categoria:</b> <span id="category"></span></p>
         <p class="mt-3"><b>Resposta sugerida:</b></p>
         <textarea id="replyText" rows="4" class="w-full border rounded p-2"></textarea>
+        <p class="mt-3 text-sm text-gray-500">Fonte: <span id="responseSource"></span></p>
       </div>
     </section>
 
@@ -43,27 +50,51 @@
   const fileInput = document.getElementById("fileInput");
   const clearFileBtn = document.getElementById("clearFileBtn");
   const emailText = document.getElementById("emailText");
+  const analyzeBtn = document.getElementById("analyzeBtn");
+  const btnText = document.getElementById("btnText");
+  const btnSpinner = document.getElementById("btnSpinner");
+  const responseSource = document.getElementById("responseSource");
 
   clearFileBtn.addEventListener("click", () => {
     fileInput.value = ""; // Limpa o arquivo selecionado
-    // Opcional: também limpa o texto do textarea
-    // emailText.value = "";
   });
 
-  document.getElementById("analyzeBtn").addEventListener("click", async () => {
+  analyzeBtn.addEventListener("click", async () => {
     const formData = new FormData();
     const text = emailText.value.trim();
     if (fileInput.files[0]) formData.append("file", fileInput.files[0]);
     if (text) formData.append("text", text);
 
-    const res = await fetch("/process", { method: "POST", body: formData });
-    const data = await res.json();
-    if (data.error) { alert(data.error); return; }
+    // Desativa botão e mostra spinner
+    analyzeBtn.disabled = true;
+    btnText.textContent = "Processando...";
+    btnSpinner.classList.remove("hidden");
 
-    document.getElementById("results").classList.remove("hidden");
-    document.getElementById("category").textContent = data.categoria;
-    document.getElementById("replyText").value = data.resposta;
+    try {
+      const res = await fetch("/process", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.error) { alert(data.error); return; }
+
+      document.getElementById("results").classList.remove("hidden");
+      document.getElementById("category").textContent = data.categoria;
+      document.getElementById("replyText").value = data.resposta;
+
+      // Indica a fonte da resposta
+      responseSource.textContent = data.source === "manual" 
+        ? "Gerada manualmente" 
+        : "Gerada pelo Gemini-2.0-flash-exp";
+
+    } catch (err) {
+      alert("Erro ao processar o email.");
+      console.error(err);
+    } finally {
+      // Reativa botão e esconde spinner
+      analyzeBtn.disabled = false;
+      btnText.textContent = "Processar";
+      btnSpinner.classList.add("hidden");
+    }
   });
 </script>
+
 </body>
 </html>
