@@ -2,7 +2,7 @@
 
 This project is a web-based email classification tool designed for the finance sector. It allows users to quickly classify emails as either **productive** or **unproductive**, and automatically suggests responses using AI. If the AI is unavailable or returns an error, a manual fallback system ensures continuous functionality.
 
-Deploy URL: <a href='https://devdantas.pythonanywhere.com/' target='_blank'>https://devdantas.pythonanywhere.com/ </a> 
+Deploy URL: <a href="https://devdantas.pythonanywhere.com/" target="_blank">devdantas.pythonanywhere.com </a> 
 ---
 
 ## Features
