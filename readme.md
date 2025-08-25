@@ -19,7 +19,7 @@ Deploy URL: <a href='https://devdantas.pythonanywhere.com/' target='_blank'>devd
 
 ## Como Usar
 
-1. **Login**: Acesse a aplicação web com as credenciais predefinidas.
+1. **Login**: Acesse a aplicação web com as credenciais predefinidas. Login:lucas - Senha:12345
 2. **Enviar Email**: Cole o conteúdo do email na área de texto ou faça upload de um arquivo `.txt` ou `.pdf`.
 3. **Processar**: Clique no botão "Processar". Um spinner indica que o sistema está trabalhando.
 4. **Ver Resultados**: O sistema exibe a categoria de classificação e a resposta sugerida. Também informa se a resposta foi gerada manualmente ou pela IA.
