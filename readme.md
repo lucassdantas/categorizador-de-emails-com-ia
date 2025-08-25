@@ -43,8 +43,8 @@ Deploy URL: https://devdantas.pythonanywhere.com/
     pip install flask PyPDF2 nltk python-dotenv google-generativeai
 
 3. Configure your AI API key and credentials in a `.env` file:
-    GEMINI_API_KEY=your_api_key_here
-    LOGIN:your_login 
+    GEMINI_API_KEY=your_api_key_here\
+    LOGIN:your_login\
     PASSWORD:your_password
 
 4. Run the Flask application:
